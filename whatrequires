@@ -1,1 +1,6 @@
 # This file contains recursive sources that require this package
+R-DT
+R-httpuv
+R-plotly
+R-shiny
+R-shinydashboard

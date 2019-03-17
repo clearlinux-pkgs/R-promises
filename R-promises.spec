@@ -4,28 +4,34 @@
 #
 Name     : R-promises
 Version  : 1.0.1
-Release  : 6
+Release  : 7
 URL      : https://cran.r-project.org/src/contrib/promises_1.0.1.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/promises_1.0.1.tar.gz
 Summary  : Abstractions for Promise-Based Asynchronous Programming
 Group    : Development/Tools
 License  : MIT
-Requires: R-promises-lib
+Requires: R-promises-lib = %{version}-%{release}
 Requires: R-Rcpp
+Requires: R-cli
 Requires: R-future
+Requires: R-globals
 Requires: R-later
+Requires: R-listenv
 Requires: R-purrr
+Requires: R-withr
 BuildRequires : R-Rcpp
+BuildRequires : R-cli
 BuildRequires : R-future
+BuildRequires : R-globals
 BuildRequires : R-later
+BuildRequires : R-listenv
 BuildRequires : R-purrr
-BuildRequires : clr-R-helpers
+BuildRequires : R-withr
+BuildRequires : buildreq-R
 
 %description
-in R using promises. Asynchronous programming is useful for allowing a single
-    R process to orchestrate multiple tasks in the background while also attending
-    to something else. Semantics are similar to 'JavaScript' promises, but with a
-    syntax that is idiomatic R.
+# promises
+[![Build Status](https://travis-ci.org/rstudio/promises.svg?branch=master)](https://travis-ci.org/rstudio/promises)
 
 %package lib
 Summary: lib components for the R-promises package.
@@ -43,11 +49,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1526837773
+export SOURCE_DATE_EPOCH=1552838208
 
 %install
+export SOURCE_DATE_EPOCH=1552838208
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1526837773
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -65,9 +71,9 @@ echo "FFLAGS = $FFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 echo "CXXFLAGS = $CXXFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library promises
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx2 ; mv $i.avx2 ~/.stash/; done
-echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512 " > ~/.R/Makevars
-echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512 " >> ~/.R/Makevars
-echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512  " >> ~/.R/Makevars
+echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --preclean --install-tests --no-test-load --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library promises
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx512 ; mv $i.avx512 ~/.stash/; done
 echo "CFLAGS = $CFLAGS -ftree-vectorize " > ~/.R/Makevars
@@ -82,8 +88,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library promises|| : 
-cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
+R CMD check --no-manual --no-examples --no-codoc  promises || :
 
 
 %files
@@ -123,10 +128,14 @@ cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 /usr/lib64/R/library/promises/help/promises.rdx
 /usr/lib64/R/library/promises/html/00Index.html
 /usr/lib64/R/library/promises/html/R.css
-/usr/lib64/R/library/promises/libs/symbols.rds
+/usr/lib64/R/library/promises/tests/testthat.R
+/usr/lib64/R/library/promises/tests/testthat/common.R
+/usr/lib64/R/library/promises/tests/testthat/test-aplus-2-1.R
+/usr/lib64/R/library/promises/tests/testthat/test-aplus-2-2.R
+/usr/lib64/R/library/promises/tests/testthat/test-aplus-2-3.R
+/usr/lib64/R/library/promises/tests/testthat/test-combining.R
+/usr/lib64/R/library/promises/tests/testthat/test-methods.R
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/R/library/promises/libs/promises.so
-/usr/lib64/R/library/promises/libs/promises.so.avx2
-/usr/lib64/R/library/promises/libs/promises.so.avx512
