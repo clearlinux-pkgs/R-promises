@@ -4,26 +4,32 @@
 #
 Name     : R-promises
 Version  : 1.0.1
-Release  : 13
+Release  : 14
 URL      : https://cran.r-project.org/src/contrib/promises_1.0.1.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/promises_1.0.1.tar.gz
 Summary  : Abstractions for Promise-Based Asynchronous Programming
 Group    : Development/Tools
 License  : MIT
 Requires: R-promises-lib = %{version}-%{release}
+Requires: R-R6
+Requires: R-Rcpp
+Requires: R-future
+Requires: R-later
+Requires: R-magrittr
+Requires: R-rlang
+BuildRequires : R-R6
 BuildRequires : R-Rcpp
-BuildRequires : R-cli
 BuildRequires : R-future
-BuildRequires : R-globals
 BuildRequires : R-later
-BuildRequires : R-listenv
-BuildRequires : R-purrr
-BuildRequires : R-withr
+BuildRequires : R-magrittr
+BuildRequires : R-rlang
 BuildRequires : buildreq-R
 
 %description
-# promises
-[![Build Status](https://travis-ci.org/rstudio/promises.svg?branch=master)](https://travis-ci.org/rstudio/promises)
+in R using promises. Asynchronous programming is useful for allowing a single
+    R process to orchestrate multiple tasks in the background while also attending
+    to something else. Semantics are similar to 'JavaScript' promises, but with a
+    syntax that is idiomatic R.
 
 %package lib
 Summary: lib components for the R-promises package.
@@ -40,13 +46,13 @@ lib components for the R-promises package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1552873638
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1568752691
 
 %install
-export SOURCE_DATE_EPOCH=1552873638
+export SOURCE_DATE_EPOCH=1568752691
 rm -rf %{buildroot}
-export LANG=C
+export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -75,12 +81,12 @@ R CMD INSTALL --preclean --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} 
 cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc  promises || :
+R CMD check --no-manual --no-examples --no-codoc promises || :
 
 
 %files

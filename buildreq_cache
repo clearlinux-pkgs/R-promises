@@ -1,9 +1,2 @@
 1.0.1
-R-Rcpp
-R-cli
 R-future
-R-globals
-R-later
-R-listenv
-R-purrr
-R-withr
