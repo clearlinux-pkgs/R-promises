@@ -4,7 +4,7 @@
 #
 Name     : R-promises
 Version  : 1.1.0
-Release  : 15
+Release  : 16
 URL      : https://cran.r-project.org/src/contrib/promises_1.1.0.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/promises_1.1.0.tar.gz
 Summary  : Abstractions for Promise-Based Asynchronous Programming
@@ -13,7 +13,6 @@ License  : MIT
 Requires: R-promises-lib = %{version}-%{release}
 Requires: R-R6
 Requires: R-Rcpp
-Requires: R-future
 Requires: R-later
 Requires: R-magrittr
 Requires: R-rlang
@@ -24,6 +23,7 @@ BuildRequires : R-later
 BuildRequires : R-magrittr
 BuildRequires : R-rlang
 BuildRequires : buildreq-R
+BuildRequires : util-linux
 
 %description
 # promises
@@ -45,10 +45,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570382823
+export SOURCE_DATE_EPOCH=1571878930
 
 %install
-export SOURCE_DATE_EPOCH=1570382823
+export SOURCE_DATE_EPOCH=1571878930
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
