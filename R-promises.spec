@@ -5,7 +5,7 @@
 #
 Name     : R-promises
 Version  : 1.2.1
-Release  : 44
+Release  : 45
 URL      : https://cran.r-project.org/src/contrib/promises_1.2.1.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/promises_1.2.1.tar.gz
 Summary  : Abstractions for Promise-Based Asynchronous Programming
