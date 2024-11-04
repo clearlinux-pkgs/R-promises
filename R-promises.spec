@@ -7,7 +7,7 @@
 #
 Name     : R-promises
 Version  : 1.3.0
-Release  : 47
+Release  : 48
 URL      : https://cran.r-project.org/src/contrib/promises_1.3.0.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/promises_1.3.0.tar.gz
 Summary  : Abstractions for Promise-Based Asynchronous Programming
